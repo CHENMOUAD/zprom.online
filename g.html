@@ -1,1 +1,834 @@
-1
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>株式市場の学習コミュニティ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --line-green: #06C755;
+            --primary-yellow: #FFD700;
+            --secondary-yellow: #FFC107;
+            --dark-bg: #0A0A0A;
+            --darker-bg: #050505;
+            --card-bg: #111111;
+            --text-light: #ffffff;
+            --text-gray: #999999;
+            --text-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-light);
+            background-color: var(--dark-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ヘッダーセクション */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            background-color: var(--darker-bg);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.1), transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(255, 215, 0, 0.05), transparent 40%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            padding-right: 20px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            font-weight: 900;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .hero-title span {
+            display: block;
+        }
+
+        .highlight {
+            color: var(--primary-yellow);
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 5px;
+            width: 100%;
+            height: 8px;
+            background-color: var(--primary-yellow);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: var(--text-gray);
+            max-width: 600px;
+        }
+
+        .hero-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            height: 100%;
+            max-height: 500px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.05);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image-container:hover .hero-image {
+            transform: scale(1);
+        }
+
+        .hero-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+        }
+
+        .hero-image-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary-yellow);
+        }
+
+        /* 学習セクション */
+        .learning {
+            padding: 120px 0;
+            background-color: var(--dark-bg);
+            position: relative;
+        }
+
+        .learning::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .section-header {
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-yellow);
+        }
+
+        .section-subtitle {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+        }
+
+        .learning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .learning-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-left: 3px solid var(--secondary-yellow);
+        }
+
+        .learning-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .learning-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-yellow), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .learning-card:hover::before {
+            opacity: 1;
+        }
+
+        .learning-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-yellow);
+            display: inline-block;
+        }
+
+        .learning-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-yellow);
+        }
+
+        .learning-text {
+            color: var(--text-gray);
+        }
+
+        /* コミュニティセクション */
+        .community {
+            padding: 120px 0;
+            background-color: var(--darker-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .community::before {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .community-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-container {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), transparent 80%);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-yellow);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .testimonials-container {
+            position: relative;
+        }
+
+        .testimonial-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--text-gray);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: -5px;
+            font-size: 3rem;
+            color: var(--primary-yellow);
+            opacity: 0.2;
+            font-family: serif;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-yellow);
+            margin-right: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+        }
+
+        .testimonial-role {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* ボタン */
+        .btn {
+            display: inline-block;
+            background-color: var(--line-green);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 8px 25px rgba(6, 199, 85, 0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(6, 199, 85, 0.4);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-large {
+            padding: 18px 50px;
+            font-size: 1.2rem;
+        }
+
+        .btn-yellow {
+            background-color: var(--primary-yellow);
+            color: var(--text-dark);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-yellow:hover {
+            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--line-green);
+            color: var(--line-green);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--line-green);
+            color: white;
+            box-shadow: 0 12px 30px rgba(6, 199, 85, 0.3);
+        }
+
+        /* Line アイコン */
+        .line-icon-container {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--line-green);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .line-icon-container:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(6, 199, 85, 0.4);
+        }
+
+        .line-icon {
+            width: 35px;
+            height: 35px;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff3b30;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* フッター */
+        footer {
+            background-color: var(--darker-bg);
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo-container {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-light);
+        }
+
+        .footer-logo span {
+            color: var(--primary-yellow);
+        }
+
+        .footer-description {
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            max-width: 400px;
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary-yellow);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-yellow);
+        }
+
+        .legal-disclaimers {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .disclaimer-text {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 1024px) {
+            .hero-grid, .community-grid, .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-content {
+                order: 1;
+                padding-right: 0;
+            }
+
+            .hero-image-container {
+                order: 0;
+                max-height: 400px;
+            }
+
+            .section-header {
+                margin-bottom: 60px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .learning-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .learning, .community {
+                padding: 80px 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .line-icon-container {
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Line アイコン -->
+    <div class="line-icon-container" onclick="opensite()">
+        <svg class="line-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M32 11.9C32 5.9 25.9 1 18.5 1C11.1 1 5 5.9 5 11.9C5 17.3 9.9 21.8 16.2 22.7C16.6 22.8 17.2 23 17.4 23.3C17.5 23.6 17.5 24.1 17.4 24.4C17.4 24.4 17.3 25.2 17.2 25.4C17.1 25.7 16.9 26.5 18.2 26C19.5 25.5 25 22 27.5 19.1C29.2 17.3 32 15.8 32 11.9Z" fill="white"/>
+            <path d="M13 17.5C13 17.7 12.9 17.8 12.7 17.8H7.7C7.5 17.8 7.4 17.7 7.4 17.5V9.9C7.4 9.7 7.5 9.6 7.7 9.6H9C9.2 9.6 9.3 9.7 9.3 9.9V15.9H12.7C12.9 15.9 13 16 13 16.2V17.5Z" fill="#06C755"/>
+            <path d="M15.8 10.2C15.8 10 15.9 9.9 16.1 9.9H17.4C17.6 9.9 17.7 10 17.7 10.2V17.8C17.7 18 17.6 18.1 17.4 18.1H16.1C15.9 18.1 15.8 18 15.8 17.8V10.2Z" fill="#06C755"/>
+            <path d="M23.5 10.2C23.5 10 23.6 9.9 23.8 9.9H25.1C25.3 9.9 25.4 10 25.4 10.2V14.7L28.6 10.3C28.7 10.2 28.8 10.1 29 10.1H30.4C30.5 10.1 30.6 10.2 30.6 10.2C30.7 10.3 30.7 10.4 30.6 10.5L27.3 14.9L30.8 19.6C30.8 19.7 30.8 19.8 30.8 19.9C30.7 20 30.7 20 30.6 20H29.2C29 20 28.9 19.9 28.8 19.8L25.4 15.1V17.8C25.4 18 25.3 18.1 25.1 18.1H23.8C23.6 18.1 23.5 18 23.5 17.8V10.2Z" fill="#06C755"/>
+            <path d="M21 14.4V13.9C21 12.6 20.3 11.5 18.8 11.5C17.3 11.5 16.6 12.6 16.6 13.9V14.4C16.6 15.7 17.3 16.8 18.8 16.8C20.3 16.8 21 15.7 21 14.4ZM19.2 14.4C19.2 14.9 19.1 15.3 18.8 15.3C18.5 15.3 18.4 15 18.4 14.4V13.9C18.4 13.4 18.5 13 18.8 13C19.1 13 19.2 13.3 19.2 13.9V14.4Z" fill="#06C755"/>
+        </svg>
+        <div class="notification-badge">1</div>
+    </div>
+
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span>投資判断の<span class="highlight">失敗</span>は</span>
+                        <span>知識不足から生まれる</span>
+                    </h1>
+                    <p class="hero-subtitle">多くの個人投資家は、正しい知識や思考法を身につけないまま市場に参加し、感情的な判断によって損失を被っています。本質的な投資教育があなたの投資人生を変えます。</p>
+                    <button class="btn btn-large" onclick="opensite()">無料コミュニティに参加する</button>
+                </div>
+                <div class="hero-image-container">
+                    <img class="hero-image" src="https://www.tkppena.online/116540.jpg" alt="株式投資の学習" />
+                    <div class="hero-image-overlay">
+                        <h3 class="hero-image-title">正しい知識で投資の質を高める</h3>
+                        <p>感情ではなく、論理的思考に基づいた投資判断を学びましょう</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学習セクション -->
+    <section class="learning">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">投資家として成長するための学び</h2>
+                <p class="section-subtitle">私たちのコミュニティでは、単なる銘柄紹介ではなく、長期的に役立つ投資の本質を学ぶことができます。</p>
+            </div>
+            
+            <div class="learning-grid">
+                <div class="learning-card">
+                    <div class="learning-icon">🧠</div>
+                    <h3 class="learning-title">認知バイアスの克服</h3>
+                    <p class="learning-text">人間の思考に内在する様々なバイアスを理解し、より客観的な投資判断ができるようになります。確証バイアスや損失回避バイアスなど、投資判断を歪める心理的要因を学びます。</p>
+                </div>
+                
+                <div class="learning-card">
+                    <div class="learning-icon">📊</div>
+                    <h3 class="learning-title">データ分析力の向上</h3>
+                    <p class="learning-text">企業の財務諸表や経済指標を正しく読み解く力を身につけます。数字の背後にある本質を理解することで、表面的な情報に惑わされない投資判断が可能になります。</p>
+                </div>
+                
+                <div class="learning-card">
+                    <div class="learning-icon">🔍</div>
+                    <h3 class="learning-title">批判的思考法</h3>
+                    <p class="learning-text">市場の声や専門家の意見を鵜呑みにせず、自分自身で検証する姿勢を養います。情報の信頼性を見極め、独自の視点で市場を分析する力を育てます。</p>
+                </div>
+                
+                <div class="learning-card">
+                    <div class="learning-icon">⏱️</div>
+                    <h3 class="learning-title">長期的視点の構築</h3>
+                    <p class="learning-text">短期的な価格変動に一喜一憂するのではなく、企業価値の成長に焦点を当てた長期投資の考え方を学びます。時間の味方につける投資哲学を身につけます。</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <button class="btn btn-yellow" onclick="opensite()">学習コミュニティに参加する</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- コミュニティセクション -->
+    <section class="community">
+        <div class="container">
+            <div class="community-grid">
+                <div class="community-content">
+                    <h2 class="section-title">成長し続ける投資家コミュニティ</h2>
+                    <p class="section-subtitle">私たちのコミュニティは、知識の共有と相互成長を大切にしています。様々なバックグラウンドを持つメンバーとの対話を通じて、投資の視野を広げることができます。</p>
+                    
+                    <div class="stats-container">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number">10,329</div>
+                                <div class="stat-label">本日の参加者</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-number">35,000+</div>
+                                <div class="stat-label">アクティブメンバー</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-number">250+</div>
+                                <div class="stat-label">週間学習コンテンツ</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 40px;">
+                        <button class="btn btn-large" onclick="opensite()">無料で今すぐ参加する</button>
+                    </div>
+                </div>
+                
+                <div class="testimonials-container">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">このコミュニティに参加して、投資に対する考え方が根本から変わりました。以前は短期的な値動きばかり気にしていましたが、今は企業の本質的価値に注目できるようになりました。</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">TK</div>
+                            <div>
+                                <div class="testimonial-name">田中 健太</div>
+                                <div class="testimonial-role">エンジニア・38歳</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">投資初心者だった私でも、丁寧に基礎から教えてもらえました。特に認知バイアスについての学びは、日常生活の意思決定にも役立っています。</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">AM</div>
+                            <div>
+                                <div class="testimonial-name">秋山 美智子</div>
+                                <div class="testimonial-role">会社員・42歳</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">長年投資をしていましたが、このコミュニティで学んだことで、自分の投資プロセスの盲点に気づくことができました。メンバー同士の議論から学ぶことも多いです。</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">SK</div>
+                            <div>
+                                <div class="testimonial-name">鈴木 和彦</div>
+                                <div class="testimonial-role">自営業・45歳</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo-container">
+                        <div class="footer-logo">投資<span>学習</span>コミュニティ</div>
+                    </div>
+                    <p class="footer-description">当コミュニティは、投資教育を通じて個人投資家の成長をサポートすることを目的としています。感情に左右されない、合理的な投資判断ができる投資家を育てます。</p>
+                    <button class="btn btn-outline" onclick="opensite()">LINEで参加する</button>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">コミュニティについて</h3>
+                    <ul class="footer-links">
+                        <li><a href="javascript:void(0)">活動内容</a></li>
+                        <li><a href="javascript:void(0)">学習テーマ</a></li>
+                        <li><a href="javascript:void(0)">よくある質問</a></li>
+                        <li><a href="javascript:void(0)">運営者情報</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">法的情報</h3>
+                    <ul class="footer-links">
+                        <li><a href="javascript:void(0)">利用規約</a></li>
+                        <li><a href="javascript:void(0)">プライバシーポリシー</a></li>
+                        <li><a href="javascript:void(0)">免責事項</a></li>
+                        <li><a href="javascript:void(0)">お問い合わせ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="legal-disclaimers">
+                <p class="disclaimer-text">当サイトは、投資教育および情報提供のみを目的としており、特定の証券の売買を推奨するものではありません。投資には元本割れのリスクがあります。投資判断は自己責任において行ってください。</p>
+                
+                <p class="disclaimer-text">当コミュニティは、株式市場に関する知識の共有や学習、意見交換を目的としており、特定の投資リターンを約束するものではありません。参加者の投資結果について、当コミュニティは一切の責任を負いません。</p>
+                
+                <p class="disclaimer-text">当サイトはGoogle日本の金融広告ポリシーに準拠して作成されています。株式投資に関連する高利回りや確実な利益を保証する表現は一切含まれておりません。</p>
+                
+                <p class="disclaimer-text">当サービスは25歳以上の方を対象としています。日本国内の金融商品取引法その他関連法規に基づき運営されており、地域によって法規制が異なる場合があります。利用者は各自の地域における法規制を確認する責任があります。</p>
+                
+                <p class="disclaimer-text">&copy; 2023 投資学習コミュニティ All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function opensite() {
+            // LINEの公式アカウントやコミュニティへのリンク
+            // 実際のURLに置き換える必要があります
+            window.open('https://line.me/R/ti/p/@YourLineID', '_blank');
+        }
+    </script>
+</body>
+</html>
