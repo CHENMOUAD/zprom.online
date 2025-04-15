@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>高橋洋一の投資コミュニティ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
+        
+        :root {
+            --primary-color: #000080;
+            --accent-color: #F5F5F5;
+            --secondary-blue: #1A2456;
+            --light-blue: #3A4DB5;
+            --line-color: #06C755;
+            --text-dark: #333333;
+            --text-light: #FFFFFF;
+            --shadow-color: rgba(0, 0, 128, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        body {
+            background-color: var(--accent-color);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+        
+        section {
+            padding: 5rem 0;
+            position: relative;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-blue) 100%);
+            color: var(--text-light);
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.05;
+        }
+        
+        .flex {
+            display: flex;
+        }
+        
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+        
+        .flex-col {
+            flex-direction: column;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .grid {
+            display: grid;
+            grid-gap: 2rem;
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        .text-center h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px var(--shadow-color);
+        }
+        
+        .btn-line {
+            background-color: var(--line-color);
+            color: var(--text-light);
+            box-shadow: 0 8px 20px rgba(6, 199, 85, 0.3);
+        }
+        
+        .btn-line:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(6, 199, 85, 0.4);
+        }
+        
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        .card {
+            background-color: var(--text-light);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-accent {
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+        
+        .section-blue {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+        }
+        
+        .section-blue h2::after {
+            background-color: var(--text-light);
+        }
+        
+        .testimonial {
+            background-color: var(--text-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+        
+        .limited-badge {
+            display: inline-block;
+            background-color: #FF6B6B;
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+            margin-left: 1rem;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            width: 80%;
+            max-width: 360px;
+            margin: 0 auto;
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 0, 128, 0.7);
+                transform: scale(1);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(0, 0, 128, 0);
+                transform: scale(1.05);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 0, 128, 0);
+                transform: scale(1);
+            }
+        }
+        
+        .pattern-bg {
+            background-color: var(--accent-color);
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000080' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .stat-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .community-stat {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 128, 0.05);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .community-stat i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-right: 1rem;
+        }
+        
+        .disclaimer {
+            background-color: rgba(0, 0, 128, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            margin-top: 2rem;
+        }
+        
+        .mt-4 {
+            margin-top: 2rem;
+        }
+        
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+            
+            .floating-btn {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="grid grid-2">
+                <div>
+                    <h1>市場の波を読み解き、<br>安定した投資を実現する</h1>
+                    <p>こんにちは、高橋洋一です。過去20年間の投資経験を通じて、私は常に市場分析とリスク管理に焦点を当ててきました。投資戦略を継続的に調整・最適化することで、私は無料のLINEコミュニティを立ち上げ、私の経験を活かして多くの方々のお役に立ちたいと考えています。</p>
+                    <p>現代の変動する市場環境では、正しい知識と情報が何よりも重要です。単なる投資情報ではなく、実践的な投資の知恵を共有したいと思います。</p>
+                    
+                    <div class="flex items-center mt-4">
+                        <button onclick="opensite()" class="btn btn-line">
+                            <i class="fab fa-line mr-2"></i>今すぐ参加する
+                        </button>
+                        <span class="limited-badge">
+                            <i class="fas fa-fire-alt mr-1"></i>残り60名限定
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <img src="https://www.jacmsotck.online/415rirenshen/15.jpg" alt="高橋洋一" class="shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Purpose Section -->
+    <section class="pattern-bg">
+        <div class="container">
+            <h2>LINEコミュニティの目的</h2>
+            <p>このLINEコミュニティの宗旨は以下の通りです：</p>
+            
+            <div class="grid grid-2 mb-4">
+                <div class="card card-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>知識赋能</h3>
+                    <h4>知識分享と投資智慧</h4>
+                    <p>このプラットフォームを通じて、私は20年以上の投資経験を共有し、コミュニティメンバーが少なくとも5つの基本的な投資原則と戦略を習得できるよう支援します。投資能力の向上を目指します。</p>
+                </div>
+                
+                <div class="card card-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>社群互动</h3>
+                    <h4>交流と投資の洞察の共有</h4>
+                    <p>私たちのコミュニティに参加すると、すでに500名以上のメンバーが自由に投資の洞察と市場観察を交換しています。このような交流は相互理解を深め、新しい投資アイデアを触発します。</p>
+                </div>
+                
+                <div class="card card-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>风险意识</h3>
+                    <h4>精緻なリスク管理</h4>
+                    <p>成功投資には効果的なリスク管理が不可欠です。私たちは毎月2回のセミナーとディスカッションを開催し、メンバーが投資リスクを評価・管理する方法を学び、より安定した投資戦略を確保できるよう支援します。</p>
+                </div>
+                
+                <div class="card card-accent">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>市场洞察</h3>
+                    <h4>投資認識の向上</h4>
+                    <p>私たちは定期的に（四半期ごとに）ディスカッションを開催し、市場動向と経済状況を分析し、メンバーが市場の背後にあるロジックをより深く理解し、より賢明な投資決定を下せるよう支援します。</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <img src="https://www.jacmsotck.online/415rirenshen/14.jpg" alt="LINEコミュニティ" class="shadow mb-4" style="max-width: 800px; margin: 0 auto;">
+                <button onclick="opensite()" class="btn btn-primary">
+                    <i class="fab fa-line mr-2"></i>無料コミュニティに参加する
+                </button>
+                <p style="font-size: 0.9rem; margin-top: 1rem;">
+                    <i class="fas fa-check-circle text-primary mr-1"></i>投資知識を深め、市場理解を高めるための無料参加枠
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="section-blue">
+        <div class="container">
+            <h2 style="color: white;">コミュニティの現状</h2>
+            
+            <div class="grid grid-3 mb-4">
+                <div class="stat-box">
+                    <div class="stat-number">6,500+</div>
+                    <h3>活跃メンバー</h3>
+                    <p>様々なバックグラウンドを持つ投資家が集まり、知識と経験を共有しています。</p>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-number">98%</div>
+                    <h3>満足度</h3>
+                    <p>コミュニティメンバーの高い満足度を誇り、実用的な知識とサポートを提供しています。</p>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-number">300+</div>
+                    <h3>知識リソース</h3>
+                    <p>豊富な学習資料と実践的なガイドラインを通じて、投資スキルの向上をサポートします。</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-3">
+                <div class="testimonial">
+                    <div class="flex items-center mb-3">
+                        <img src="https://i.pravatar.cc/60?img=33" alt="鈴木健太" class="testimonial-avatar">
+                        <div>
+                            <h4 style="margin-bottom: 0;">鈴木健太</h4>
+                            <p style="margin-bottom: 0; color: #666; font-size: 0.9rem;">会社員 | メンバー歴6ヶ月</p>
+                        </div>
+                    </div>
+                    <p>「高橋さんのコミュニティに参加して、投資に対する理解が深まりました。特にリスク管理の考え方は、私の投資アプローチを大きく変えました。コミュニティの皆さんとの交流も非常に有益です。」</p>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="flex items-center mb-3">
+                        <img src="https://i.pravatar.cc/60?img=44" alt="田中美咲" class="testimonial-avatar">
+                        <div>
+                            <h4 style="margin-bottom: 0;">田中美咲</h4>
+                            <p style="margin-bottom: 0; color: #666; font-size: 0.9rem;">自営業 | メンバー歴3ヶ月</p>
+                        </div>
+                    </div>
+                    <p>「投資初心者として参加しましたが、基礎から段階的に学ぶことができ、今では自信を持って投資判断ができるようになりました。高橋さんの説明はとても分かりやすく、実践的です。」</p>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="flex items-center mb-3">
+                        <img src="https://i.pravatar.cc/60?img=57" alt="佐藤拓也" class="testimonial-avatar">
+                        <div>
+                            <h4 style="margin-bottom: 0;">佐藤拓也</h4>
+                            <p style="margin-bottom: 0; color: #666; font-size: 0.9rem;">エンジニア | メンバー歴8ヶ月</p>
+                        </div>
+                    </div>
+                    <p>「定期的な市場分析と投資戦略のディスカッションが非常に役立っています。他のメンバーとの意見交換を通じて、新しい視点を得ることができ、投資の幅が広がりました。」</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button onclick="opensite()" class="btn btn-line">
+                    <i class="fab fa-line mr-2"></i>無料で参加する
+                </button>
+                <span class="limited-badge">残り60名限定</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="pattern-bg">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2>今すぐ行動を</h2>
+                <p class="mb-4">投資の知識と経験を共有し、共に成長するコミュニティに参加しませんか？<br>無料の参加枠は残りわずかです。</p>
+            </div>
+            
+            <div class="grid grid-3 mb-4">
+                <div class="community-stat">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <h4 style="margin-bottom: 0.25rem;">活発なコミュニティ</h4>
+                        <p style="margin-bottom: 0;">日々の対話と知識共有が活発に行われています</p>
+                    </div>
+                </div>
+                
+                <div class="community-stat">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <h4 style="margin-bottom: 0.25rem;">実践的な知識</h4>
+                        <p style="margin-bottom: 0;">理論だけでなく、実践に役立つ投資の知恵を学べます</p>
+                    </div>
+                </div>
+                
+                <div class="community-stat">
+                    <i class="fas fa-comments"></i>
+                    <div>
+                        <h4 style="margin-bottom: 0.25rem;">サポート体制</h4>
+                        <p style="margin-bottom: 0;">質問や疑問点に対する迅速なフィードバックを提供</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card text-center mb-4">
+                <h3>無料参加の特典</h3>
+                <p>コミュニティに参加すると、投資基礎ガイド、市場分析レポート、リスク管理マニュアルなどの資料が無料で提供されます。これらのリソースは、あなたの投資スキル向上に役立ちます。</p>
+                <div class="flex justify-between flex-wrap" style="max-width: 600px; margin: 0 auto;">
+                    <div style="text-align: left; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>実践的な投資知識
+                    </div>
+                    <div style="text-align: left; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>定期的な市場分析
+                    </div>
+                    <div style="text-align: left; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>リスク管理の方法
+                    </div>
+                    <div style="text-align: left; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>コミュニティサポート
+                    </div>
+                </div>
+                <button onclick="opensite()" class="btn btn-primary mt-4">
+                    <i class="fab fa-line mr-2"></i>今すぐ無料で参加する
+                </button>
+                <span class="limited-badge">残り60名限定</span>
+            </div>
+            
+            <div class="disclaimer">
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">免責事項</h3>
+                <p>本サイトで提供される情報は、教育目的のみであり、投資アドバイスや特定の投資結果を保証するものではありません。投資家は自身の状況に応じて独自の判断を下す必要があります。</p>
+                <p>金融商品取引法および関連法規に基づき、当サイトでは特定の証券や金融商品の購入・売却の推奨を行いません。提供される情報は一般的な教育目的であり、市場理解と分析能力向上を目的としています。</p>
+                <p>投資には元本割れのリスクがあります。投資を行う前に、必ず専門家のアドバイスを求めることをお勧めします。当サイトは、日本の金融規制および広告に関するガイドラインに準拠しています。</p>
+                <p style="margin-bottom: 0;">© 2024 高橋洋一の投資コミュニティ. All Rights Reserved.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Button -->
+    <div class="floating-btn">
+        <button onclick="opensite()" class="btn btn-line" style="width: 100%;">
+            <i class="fab fa-line mr-2"></i>LINEで参加する
+        </button>
+    </div>
+
+    <script>
+        function opensite() {
+            window.open('https://line.me/your_line_link', '_blank');
+        }
+    </script>
+</body>
+</html>
