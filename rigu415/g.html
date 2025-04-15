@@ -248,6 +248,10 @@
             position: relative;
         }
         
+        .testimonial p {
+            color: var(--text-dark);
+        }
+        
         .testimonial-avatar {
             width: 60px;
             height: 60px;
@@ -483,7 +487,7 @@
                         <img src="https://i.pravatar.cc/60?img=33" alt="鈴木健太" class="testimonial-avatar">
                         <div>
                             <h4 style="margin-bottom: 0;">鈴木健太</h4>
-                            <p style="margin-bottom: 0; color: #666; font-size: 0.9rem;">会社員 | メンバー歴6ヶ月</p>
+                            <p style="margin-bottom: 0; color: #333333; font-size: 0.9rem;">会社員 | メンバー歴6ヶ月</p>
                         </div>
                     </div>
                     <p>「高橋さんのコミュニティに参加して、投資に対する理解が深まりました。特にリスク管理の考え方は、私の投資アプローチを大きく変えました。コミュニティの皆さんとの交流も非常に有益です。」</p>
@@ -494,7 +498,7 @@
                         <img src="https://i.pravatar.cc/60?img=44" alt="田中美咲" class="testimonial-avatar">
                         <div>
                             <h4 style="margin-bottom: 0;">田中美咲</h4>
-                            <p style="margin-bottom: 0; color: #666; font-size: 0.9rem;">自営業 | メンバー歴3ヶ月</p>
+                            <p style="margin-bottom: 0; color: #333333; font-size: 0.9rem;">自営業 | メンバー歴3ヶ月</p>
                         </div>
                     </div>
                     <p>「投資初心者として参加しましたが、基礎から段階的に学ぶことができ、今では自信を持って投資判断ができるようになりました。高橋さんの説明はとても分かりやすく、実践的です。」</p>
@@ -505,7 +509,7 @@
                         <img src="https://i.pravatar.cc/60?img=57" alt="佐藤拓也" class="testimonial-avatar">
                         <div>
                             <h4 style="margin-bottom: 0;">佐藤拓也</h4>
-                            <p style="margin-bottom: 0; color: #666; font-size: 0.9rem;">エンジニア | メンバー歴8ヶ月</p>
+                            <p style="margin-bottom: 0; color: #333333; font-size: 0.9rem;">エンジニア | メンバー歴8ヶ月</p>
                         </div>
                     </div>
                     <p>「定期的な市場分析と投資戦略のディスカッションが非常に役立っています。他のメンバーとの意見交換を通じて、新しい視点を得ることができ、投資の幅が広がりました。」</p>
@@ -555,24 +559,8 @@
                 </div>
             </div>
             
-            <div class="card text-center mb-4">
-                <h3>無料参加の特典</h3>
-                <p>コミュニティに参加すると、投資基礎ガイド、市場分析レポート、リスク管理マニュアルなどの資料が無料で提供されます。これらのリソースは、あなたの投資スキル向上に役立ちます。</p>
-                <div class="flex justify-between flex-wrap" style="max-width: 600px; margin: 0 auto;">
-                    <div style="text-align: left; margin-bottom: 1rem;">
-                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>実践的な投資知識
-                    </div>
-                    <div style="text-align: left; margin-bottom: 1rem;">
-                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>定期的な市場分析
-                    </div>
-                    <div style="text-align: left; margin-bottom: 1rem;">
-                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>リスク管理の方法
-                    </div>
-                    <div style="text-align: left; margin-bottom: 1rem;">
-                        <i class="fas fa-check-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>コミュニティサポート
-                    </div>
-                </div>
-                <button onclick="opensite()" class="btn btn-primary mt-4">
+            <div class="text-center mt-4">
+                <button onclick="opensite()" class="btn btn-primary">
                     <i class="fab fa-line mr-2"></i>今すぐ無料で参加する
                 </button>
                 <span class="limited-badge">残り60名限定</span>
